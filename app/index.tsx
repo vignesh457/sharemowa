@@ -1,11 +1,27 @@
-import { View, Text } from 'react-native'
-import React from 'react'
-import { Redirect } from 'expo-router'
+import { useAuth } from '@clerk/clerk-expo';
+import React, { useEffect } from 'react';
+import { Redirect } from 'expo-router';
 
-const index = () => {
-  return (
-    <Redirect href="/(auth)/features" />
-  )
-}
+const Index = () => {
+  const { isSignedIn, isLoaded } = useAuth();
 
-export default index
+  // Debugging: Log auth state
+  useEffect(() => {
+    console.log("Is Loaded:", isLoaded);
+    console.log("Is Signed In:", isSignedIn);
+  }, [isLoaded, isSignedIn]);
+
+  // Wait for auth state to load
+  if (!isLoaded) {
+    return null; // Optionally render a loading spinner here
+  }
+
+  // Redirect based on session state
+  if (isSignedIn) {
+    return <Redirect href={'/(root)/home'} />;
+  }
+  
+  return <Redirect href="/(auth)/features" />;
+};
+
+export default Index;

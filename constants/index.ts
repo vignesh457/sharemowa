@@ -1,3 +1,4 @@
+import indiaFlag from "@/assets/icons/india-flag.png";
 import arrowDown from "@/assets/icons/arrow-down.png";
 import arrowUp from "@/assets/icons/arrow-up.png";
 import backArrow from "@/assets/icons/back-arrow.png";
@@ -31,6 +32,9 @@ import onboarding1 from "@/assets/images/onboarding1.png";
 import onboarding2 from "@/assets/images/onboarding2.png";
 import onboarding3 from "@/assets/images/onboarding3.png";
 import signUpCar from "@/assets/images/signup-car.png";
+import phoneSvg from "@/assets/images/phone-svg.png";
+import otpSvg from "@/assets/images/otp-svg.png";
+
 
 export const images = {
     onboarding1,
@@ -41,6 +45,8 @@ export const images = {
     check,
     noResult,
     message,
+    phoneSvg,
+    otpSvg
 };
 
 export const icons = {
@@ -69,6 +75,7 @@ export const icons = {
     star,
     target,
     to,
+    indiaFlag,
 };
 
 export const onboarding = [

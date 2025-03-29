@@ -20,38 +20,38 @@ const Features = () => {
     }
   }
   return (
-    <SafeAreaView className="flex-1 justify-center items-center bg-gray-900">
+    <SafeAreaView className="flex-1 justify-center items-center bg-secondary-400">
       <TouchableOpacity
         onPress={() => router.push('/(auth)/sign-up')}
-        className=" w-20 h-9 rounded-full absolute top-10 right-4 flex items-center justify-center z-10"
+        className=" w-20 h-9 rounded-full absolute top-12 right-2 flex items-center justify-center z-10"
       >
-        <Text className="text-orange-500 text-md font-JakartaBold">Skip</Text>
+        <Text className="text-primary-100 text-md font-JakartaBold">Skip</Text>
       </TouchableOpacity>
 
       <Swiper
         loop={false}
         dot={
-          <View className="bg-slate-600 w-10 h-1.5 mx-1 rounded-full"></View>
+          <View className="bg-secondary-300 w-10 h-1.5 mx-1 rounded-full"></View>
         }
         activeDot={
-          <View className="bg-orange-500 w-10 h-1.5 mx-1 rounded-full"></View>
+          <View className="bg-primary-100 w-10 h-1.5 mx-1 rounded-full"></View>
         }
         ref={ref}
-        className=" bg-gray-900"
+        className='bg-secondary-400'
         onIndexChanged={(index)=>setIndex(index)}
       >
         {onboarding.map((item) => (
-          <View key={item.id} className="my-auto h-3/4 w-full flex items-center justify-center  bg-black ">
+          <View key={item.id} className="m-auto rounded-[10px] h-3/4 w-[90%] flex items-center justify-center bg-secondary-300 ">
             <Image 
               source={item.image}
-              className="w-80 h-80 mb-20"         
+              className="w-80 h-80 mb-10"         
             />
-            <Text className="text-white font-JakartaBold text-2xl">{item.title}</Text>
-            <Text className="text-slate-400 font-JakartaRegular text-lg mt-2">{item.description}</Text>
+            <Text className="text-secondary-100 font-JakartaBold text-2xl w-80">{item.title}</Text>
+            <Text className="text-secondary-200 font-JakartaRegular text-lg mt-2 w-80">{item.description}</Text>
           </View>
         ))}
       </Swiper>
-      <CustomButton onPress={handleOnPress} title={isLast?"Get Started":"Next"} className='w-5/6 mb-4 p-3'/>
+      <CustomButton onPress={handleOnPress} active={true} title={isLast?"Get Started":"Next"} className=''/>
     </SafeAreaView>
   );
 };
