@@ -45,7 +45,7 @@ export default function RootLayout() {
         <Stack.Screen name="(auth)" options={{ gestureEnabled: false }} />
         <Stack.Screen name="(root)" options={{ gestureEnabled: false }} />
       </Stack>
-      <StatusBar style="dark" />
+      <StatusBar style="auto" />
     </ClerkProvider>
   );
 }

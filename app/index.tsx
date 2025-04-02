@@ -1,6 +1,8 @@
 import { useAuth } from '@clerk/clerk-expo';
 import React, { useEffect } from 'react';
 import { Redirect } from 'expo-router';
+import DatePickerUi from '@/components/CustomDatePicker';
+import CustomRadioBtn from '@/components/CustomRadioBtn';
 
 const Index = () => {
   const { isSignedIn, isLoaded } = useAuth();
@@ -18,10 +20,12 @@ const Index = () => {
 
   // Redirect based on session state
   if (isSignedIn) {
-    return <Redirect href={'/(root)/home'} />;
+    return <Redirect href={'/(root)/(dashboard)/main'} />;
   }
   
   return <Redirect href="/(auth)/features" />;
+  // return <Redirect href="/(root)/(dashboard)/vehicleSelect" />;
+  // return <CustomRadioBtn/>
 };
 
 export default Index;

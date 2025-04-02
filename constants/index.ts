@@ -34,6 +34,14 @@ import onboarding3 from "@/assets/images/onboarding3.png";
 import signUpCar from "@/assets/images/signup-car.png";
 import phoneSvg from "@/assets/images/phone-svg.png";
 import otpSvg from "@/assets/images/otp-svg.png";
+import car from "@/assets/images/car.png";
+import bike from "@/assets/images/bike.png";
+import biker from "@/assets/images/biker.png";
+import rider from "@/assets/images/rider.png";
+import foxMascot from "@/assets/images/fox-mascot.png";
+import arrow from "@/assets/icons/arrow.png";
+import addProfile from "@/assets/icons/add-contact.png";
+import calender from "@/assets/icons/calendar.png";
 
 
 export const images = {
@@ -46,7 +54,12 @@ export const images = {
     noResult,
     message,
     phoneSvg,
-    otpSvg
+    otpSvg,
+    car, 
+    bike,
+    biker,
+    rider,
+    foxMascot,
 };
 
 export const icons = {
@@ -76,6 +89,9 @@ export const icons = {
     target,
     to,
     indiaFlag,
+    arrow,
+    addProfile,
+    calender
 };
 
 export const onboarding = [

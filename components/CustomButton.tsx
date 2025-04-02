@@ -6,7 +6,7 @@ const CustomButton = ({
   icon,
   className,
   active,
-  onPress
+  onPress,
 }: { 
   title: string; 
   icon?: ImageSourcePropType 
