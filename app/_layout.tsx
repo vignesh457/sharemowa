@@ -40,10 +40,10 @@ export default function RootLayout() {
 
   return (
     <ClerkProvider tokenCache={tokenCache} publishableKey={publishableKey}>
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="index" options={{ gestureEnabled: false }} />
-        <Stack.Screen name="(auth)" options={{ gestureEnabled: false }} />
-        <Stack.Screen name="(root)" options={{ gestureEnabled: false }} />
+      <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: '#000' }}}>
+        <Stack.Screen name="index" options={{ gestureEnabled: false, animation: 'slide_from_right' }} />
+        <Stack.Screen name="(auth)" options={{ gestureEnabled: false, animation: 'slide_from_right' }} />
+        <Stack.Screen name="(root)" options={{ gestureEnabled: false, animation: 'slide_from_right' }} />
       </Stack>
       <StatusBar style="auto" />
     </ClerkProvider>

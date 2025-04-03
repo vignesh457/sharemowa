@@ -3,7 +3,6 @@ import arrowDown from "@/assets/icons/arrow-down.png";
 import arrowUp from "@/assets/icons/arrow-up.png";
 import backArrow from "@/assets/icons/back-arrow.png";
 import chat from "@/assets/icons/chat.png";
-import checkmark from "@/assets/icons/check.png";
 import close from "@/assets/icons/close.png";
 import dollar from "@/assets/icons/dollar.png";
 import email from "@/assets/icons/email.png";
@@ -42,6 +41,9 @@ import foxMascot from "@/assets/images/fox-mascot.png";
 import arrow from "@/assets/icons/arrow.png";
 import addProfile from "@/assets/icons/add-contact.png";
 import calender from "@/assets/icons/calendar.png";
+import document from "@/assets/icons/document.png";
+import rightArrow from "@/assets/icons/right-arrow.png";
+import success from "@/assets/icons/success.png";
 
 
 export const images = {
@@ -67,7 +69,6 @@ export const icons = {
     arrowUp,
     backArrow,
     chat,
-    checkmark,
     close,
     dollar,
     email,
@@ -91,7 +92,10 @@ export const icons = {
     indiaFlag,
     arrow,
     addProfile,
-    calender
+    calender,
+    document,
+    rightArrow,
+    success
 };
 
 export const onboarding = [

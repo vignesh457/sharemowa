@@ -1,37 +1,22 @@
-import { View,TouchableOpacity, Image } from 'react-native'
+import { View, Text, SafeAreaView, TouchableOpacity,Image } from 'react-native'
 import React from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import SpeechBubble from '@/components/SpeechBubble'
 import { images } from '@/constants'
-import { router, useLocalSearchParams } from 'expo-router'
+import { router } from 'expo-router'
 
-const vehicleSelect = () => {
-  const {role} = useLocalSearchParams();
-  function handleBikeClick(){
-    router.push({
-      pathname: "/(root)/home",
-      params: {
-        vehicleType: "Bike",
-      },
-    });
-  
-  }
-
-  function handleCarClick(){
-    router.push({
-      pathname: "/(root)/home",
-      params: {
-        vehicleType: "Car",
-      },
-    })
-  }
-
+const vehicleType = () => {
+  const handleBikeClick = () => {
+    router.push("/(root)/(dashboard)/(bikerReg)/main");
+  };
+  const handleCarClick = () => {
+    router.push("/(root)/(dashboard)/(bikerReg)/main");
+  };
   return (
     <SafeAreaView className='flex-1 justify-center items-center bg-secondary-400'>
       <View className='w-full h-[60%] flex justify-center items-center'>
         <View className='flex justify-center items-center gap-7'>
           <SpeechBubble
-            text={role == "Rider" ? "Which vechicle are you looking for ?" : "Which vehicle are you offering ?"}
+            text="Select your vehicle type"
           />
           <Image source={images.foxMascot} className='w-[130px] h-[130px]' />
         </View>
@@ -54,4 +39,4 @@ const vehicleSelect = () => {
   )
 }
 
-export default vehicleSelect
+export default vehicleType

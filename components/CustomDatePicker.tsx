@@ -1,16 +1,22 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Platform, Image } from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import { icons } from '@/constants';
 
 export default function CustomDatePicker({date, setDate}: any) {
   const [show, setShow] = useState(false);
 
-  const onChange = (event: any, selectedDate?: Date) => {
+  const onChange = (event: DateTimePickerEvent, selectedDate?: Date | undefined) => {
     setShow(false); // Hide picker after selecting a date
+    console.log(selectedDate+" -------------------");
     if (selectedDate) {
       setDate("dob", selectedDate.toLocaleDateString("en-GB"));
     }
+  };
+
+  const parseToDate = (dateString: string): Date => {
+    const [day, month, year] = dateString.split("/").map(Number); // Extract dd, mm, yyyy
+    return new Date(year, month - 1, day); // month is 0-based in JS
   };
 
   return (
@@ -28,7 +34,7 @@ export default function CustomDatePicker({date, setDate}: any) {
 
       {show && (
         <DateTimePicker
-          value={date || new Date()}
+          value={date==''? new Date(): parseToDate(date)}
           mode="date"
           display={Platform.OS === 'ios' ? 'spinner' : 'default'}
           onChange={onChange}

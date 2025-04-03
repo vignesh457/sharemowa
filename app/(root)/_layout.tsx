@@ -5,8 +5,8 @@ export default function AuthLayout() {
   
   return (
     <>
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="home" options={{ gestureEnabled: false }} />
+      <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: '#000' } }}>
+        <Stack.Screen name="home" options={{ gestureEnabled: false, animation: 'slide_from_right'  }} />
       </Stack>
       <StatusBar style="auto" />
     </>

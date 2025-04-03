@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, Image, ScrollView, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { View, Text, SafeAreaView, Image, ScrollView, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import CustomButton from '@/components/CustomButton';
 import InputFeildWithLabel from '@/components/InputFeildWithLabel';
@@ -39,7 +39,9 @@ const ProfileInfoForm = () => {
           <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
             {/* Header */}
             <View className="bg-secondary-300 w-full h-[15%] flex flex-row justify-evenly items-center pt-5">
-              <Image source={icons.arrow} className="w-[30px] h-[30px] ml-7 mr-10" />
+              <TouchableOpacity onPress={() => router.back()}>
+                <Image source={icons.arrow} className="w-[30px] h-[30px] ml-7 mr-10" />
+              </TouchableOpacity>
               <Text className="text-secondary-100 text-2xl font-JakartaBold flex-1">Profile Information</Text>
             </View>
 
