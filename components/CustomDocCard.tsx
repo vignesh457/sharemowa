@@ -12,7 +12,7 @@ const CustomDocCard = ({label, leftIcon, status}: {label: string, leftIcon: Imag
             <Text className='tracking-widest text-lg font-JakartaMedium text-secondary-100'>{label}</Text>
         </View>
         <View className='w-[15%] h-[90%] flex items-center justify-center '>
-            <Image source={status ? icons.success : icons.rightArrow} className="w-8 h-8" />
+            <Image source={status ? icons.success : icons.rightArrow} className="w-6 h-6" />
         </View>
     </View>
   )

@@ -12,6 +12,22 @@ const main = () => {
     const handleSubmit = () => {
         router.push('/(root)/(dashboard)/vehicleSelect');
     }
+    function handleRcClick() {
+        router.push('/(root)/(dashboard)/(bikerReg)/rcForm');
+    }
+
+    function handleDrivingLicenseClick() {
+        router.push('/(root)/(dashboard)/(bikerReg)/dlForm');
+    }
+
+    function handleAadharClick() {
+        router.push('/(root)/(dashboard)/(bikerReg)/identityForm');
+    }
+
+    function handleProfileClick() {
+        router.push('/(root)/(dashboard)/profileInfoForm');
+    }
+
   return (
     <SafeAreaView className="bg-secondary-400 flex-1">
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -33,10 +49,18 @@ const main = () => {
                     <Text className=" text-primary-100 text-lg w-2/3 font-JakartaLight">Please complete all the steps to activate your account</Text>
                     <ActivityIndicator size="large" color="#E27139" />
                 </View>
-                <CustomDocCard label="Vehicle RC Number" leftIcon={icons.document} status={true}/>
-                <CustomDocCard label="Driving License" leftIcon={icons.document} status={false}/>
-                <CustomDocCard label="Aadhar/Pan Card" leftIcon={icons.document} status={false}/>
-                <CustomDocCard label="Profile info" leftIcon={icons.addProfile} status={false}/>
+                <TouchableOpacity onPress={handleRcClick}>
+                    <CustomDocCard label="Vehicle RC Number" leftIcon={icons.document} status={true}/>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={handleDrivingLicenseClick}>
+                    <CustomDocCard label="Driving License" leftIcon={icons.document} status={false}/>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={handleAadharClick}>
+                    <CustomDocCard label="Aadhar/Pan Card" leftIcon={icons.document} status={false}/>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={handleProfileClick}>
+                    <CustomDocCard label="Profile info" leftIcon={icons.profile} status={false}/>
+                </TouchableOpacity>
             </View>
             {/* Submit Button */}
             <View className="w-full h-[15%] flex justify-center items-center">

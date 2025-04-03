@@ -44,6 +44,7 @@ import calender from "@/assets/icons/calendar.png";
 import document from "@/assets/icons/document.png";
 import rightArrow from "@/assets/icons/right-arrow.png";
 import success from "@/assets/icons/success.png";
+import documentInstructions from "@/assets/images/document-instructions.jpg";
 
 
 export const images = {
@@ -62,6 +63,7 @@ export const images = {
     biker,
     rider,
     foxMascot,
+    documentInstructions
 };
 
 export const icons = {
