@@ -5,9 +5,9 @@ export default function AuthLayout() {
   
   return (
     <>
-      <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: '#000' }}}>
-        <Stack.Screen name="features" options={{ gestureEnabled: false, animation: 'slide_from_right'  }} />
-        <Stack.Screen name="sign-up" options={{ gestureEnabled: false, animation: 'slide_from_right'  }} />
+      <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: '#000' }, animation: 'slide_from_right' }}>
+        <Stack.Screen name="features" options={{ gestureEnabled: false  }} />
+        <Stack.Screen name="sign-up" options={{ gestureEnabled: false  }} />
       </Stack>
       <StatusBar style="auto" />
     </>

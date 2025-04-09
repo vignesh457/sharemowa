@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   // NOTE: Update this to include the paths to all of your component files.
-  content: ["./app/**/*.{js,jsx,ts,tsx}", "./components/**/*.{js,jsx,ts,tsx}"],
+  content: ["./app/**/*.{js,jsx,ts,tsx}", "./components/**/*.{js,jsx,ts,tsx}", "./ui/**/*.{js,jsx,ts,tsx}"],
   presets: [require("nativewind/preset")],
   theme: {
     extend: {
@@ -13,6 +13,10 @@ module.exports = {
             JakartaLight: ["Jakarta-Light", "sans-serif"],
             JakartaMedium: ["Jakarta-Medium", "sans-serif"],
             JakartaSemiBold: ["Jakarta-SemiBold", "sans-serif"],
+            Nunito: ["Nunito-Regular", "sans-serif"],
+            NunitoLight: ["Nunito-Light", "sans-serif"],
+            NunitoSemiBold: ["Nunito-SemiBold", "sans-serif"],
+            NunitoBold: ["Nunito-Bold", "sans-serif"],
         },
         colors: {
             primary: {

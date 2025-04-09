@@ -5,11 +5,10 @@ import { Stack } from 'expo-router'
 const _layout = () => {
   return (
     <>
-        <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: '#000' } }}>
-            <Stack.Screen name="main" options={{ gestureEnabled: false, animation: 'slide_from_right'  }} />
-            <Stack.Screen name="profileInfo" options={{ gestureEnabled: false, animation: 'slide_from_right'  }} />
-            <Stack.Screen name="profileInfoForm" options={{ gestureEnabled: false, animation: 'slide_from_right'  }} />
-            <Stack.Screen name="vehicleSelect" options={{ gestureEnabled: false, animation: 'slide_from_right'  }} />
+        <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: '#000' }, animation: 'slide_from_right'  }}>
+            <Stack.Screen name="roleSelect" options={{ gestureEnabled: false  }} />
+            <Stack.Screen name="vehicleSelect" options={{ gestureEnabled: false }} />
+            <Stack.Screen name="(registration)" options={{ gestureEnabled: false  }} />
         </Stack>
         <StatusBar style='auto' />
     </>

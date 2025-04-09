@@ -1,6 +1,5 @@
 import { View, Text, SafeAreaView, TouchableOpacity, Image } from 'react-native'
-import React, { useState } from 'react'
-import CustomButton from '@/components/CustomButton'
+import React from 'react'
 import SpeechBubble from '@/components/SpeechBubble'
 import { images } from '@/constants'
 import { router } from 'expo-router'
@@ -13,15 +12,15 @@ const main = () => {
       router.push({
             pathname: "/(root)/(dashboard)/vehicleSelect",
             params: {
-              role: "Rider",
+              role: "rider",
             },
           });
     }
     else{
       router.push({
-            pathname: "/(root)/(dashboard)/profileInfo",
+            pathname: "/(root)/(dashboard)/(registration)/mascotPrompt",
             params: {
-              role: "Rider",
+              role: "rider",
             },
           });
     }
@@ -32,15 +31,15 @@ const main = () => {
       router.push({
             pathname: "/(root)/(dashboard)/vehicleSelect",
             params: {
-              role: "Biker",
+              role: "biker",
             },
           });
     }
     else{
       router.push({
-            pathname: "/(root)/(dashboard)/(bikerReg)/vehicleType",
+            pathname: "/(root)/(dashboard)/(registration)/mascotPrompt",
             params: {
-              role: "Biker",
+              role: "biker",
             },
           });
     }
@@ -51,7 +50,7 @@ const main = () => {
       <View className='w-full h-[60%] flex justify-center items-center'>
         <View className='flex justify-center items-center gap-7'>
           <SpeechBubble
-            text="Hello Suresh, Are you here to offer a ride or take a ride ?"
+            text="Hello, Are you here to offer a ride or take a ride ?"
           />
           <Image source={images.foxMascot} className='w-[130px] h-[130px]' />
         </View>

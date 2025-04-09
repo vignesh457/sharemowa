@@ -45,6 +45,11 @@ import document from "@/assets/icons/document.png";
 import rightArrow from "@/assets/icons/right-arrow.png";
 import success from "@/assets/icons/success.png";
 import documentInstructions from "@/assets/images/document-instructions.jpg";
+import upload from "@/assets/icons/upload.png";
+import icon from "@/assets/images/icon.png";
+import menu from "@/assets/icons/menu.png";
+import startEndPins from "@/assets/icons/startEndPins.png";
+import edit from "@/assets/icons/edit.png";
 
 
 export const images = {
@@ -63,7 +68,8 @@ export const images = {
     biker,
     rider,
     foxMascot,
-    documentInstructions
+    documentInstructions,
+    icon
 };
 
 export const icons = {
@@ -97,7 +103,11 @@ export const icons = {
     calender,
     document,
     rightArrow,
-    success
+    success,
+    upload,
+    menu,
+    startEndPins,
+    edit
 };
 
 export const onboarding = [

@@ -1,7 +1,7 @@
 import { View, Text, Keyboard, SafeAreaView, TouchableWithoutFeedback, Image } from 'react-native'
 import React from 'react'
 import CustomButton from '@/components/CustomButton';
-import InputFeild from '@/components/InputFeild';
+import InputField from '@/components/InputField';
 import { images, icons } from '@/constants';
 
 const PhoneNumberUi = ({ phoneNumber, setPhoneNumber, handleSendOTP }: { 
@@ -21,7 +21,7 @@ const PhoneNumberUi = ({ phoneNumber, setPhoneNumber, handleSendOTP }: {
                 <Image source={images.phoneSvg} className="h-80 w-80 mb-10 mt-[-100px]" /> 
                 <Text className="text-secondary-100 text-2xl mb-1 font-JakartaBold">Enter Your Mobile Number</Text>
                 <Text className="text-secondary-200 text-md font-JakartaRegular mb-10">We will send you a verification code</Text>
-                <InputFeild   
+                <InputField   
                 placeholder="Enter Mobile Number"
                 keyboardType="phone-pad"
                 maxLength={10}

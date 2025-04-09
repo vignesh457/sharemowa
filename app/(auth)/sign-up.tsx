@@ -69,7 +69,7 @@ export default function OTPAuthentication() {
           const result = await signUp.attemptPhoneNumberVerification({ code: otp });
           if (result.status === "complete") {
             console.log("Sign up successful!", result.createdSessionId);
-            router.replace('/(root)/(dashboard)/main');
+            router.replace('/(root)/(dashboard)/roleSelect');
           }
         }
       } else {
@@ -80,7 +80,7 @@ export default function OTPAuthentication() {
           });
           if (result.status === "complete") {
             console.log("Sign in successful!", result.createdSessionId);
-            router.replace('/(root)/(dashboard)/main');
+            router.replace('/(root)/(dashboard)/roleSelect');
           }
         }
       }

@@ -9,7 +9,7 @@ const vehicleSelect = () => {
   const {role} = useLocalSearchParams();
   function handleBikeClick(){
     router.push({
-      pathname: "/(root)/home",
+      pathname: "/(root)/(main)/home",
       params: {
         vehicleType: "Bike",
       },
@@ -19,7 +19,7 @@ const vehicleSelect = () => {
 
   function handleCarClick(){
     router.push({
-      pathname: "/(root)/home",
+      pathname: "/(root)/(main)/home",
       params: {
         vehicleType: "Car",
       },

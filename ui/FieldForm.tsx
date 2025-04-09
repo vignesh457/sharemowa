@@ -1,13 +1,13 @@
 import { View, Text, SafeAreaView, Image, ScrollView, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import CustomButton from '@/components/CustomButton';
-import InputFeildWithLabel from '@/components/InputFeildWithLabel';
+import InputFieldWithLabel from '@/components/InputFieldWithLabel';
 import { icons } from '@/constants';
 import CustomDatePicker from '@/components/CustomDatePicker';
 import CustomRadioBtn from '@/components/CustomRadioBtn';
 import { router } from 'expo-router';
 
-const ProfileInfoForm = () => {
+const FieldForm = ({parent, onSubmit}:{parent: string, onSubmit: (value: string) => void}) => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -25,8 +25,8 @@ const ProfileInfoForm = () => {
       alert('All fields are required');
       return;
     }
-    console.log(formData);
-    router.push('/(root)/(dashboard)/vehicleSelect');
+    onSubmit(JSON.stringify(formData));
+    (parent === 'biker') ? router.back() : router.push('/(root)/(dashboard)/vehicleSelect');
   };
 
   return (
@@ -51,7 +51,7 @@ const ProfileInfoForm = () => {
                 <Image source={icons.addProfile} className="w-[85px] h-[85px]" />
               </View>
 
-              <InputFeildWithLabel 
+              <InputFieldWithLabel 
                 label="First Name" 
                 value={formData.firstName} 
                 onChangeText={handleChange} 
@@ -60,7 +60,7 @@ const ProfileInfoForm = () => {
                 name="firstName"
               />
 
-              <InputFeildWithLabel 
+              <InputFieldWithLabel 
                 label="Last Name" 
                 value={formData.lastName} 
                 onChangeText={handleChange} 
@@ -85,4 +85,4 @@ const ProfileInfoForm = () => {
   );
 };
 
-export default ProfileInfoForm;
+export default FieldForm;

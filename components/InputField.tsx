@@ -1,7 +1,7 @@
-import { TextInput, View, Image, ImageSourcePropType, NativeSyntheticEvent, TextInputChangeEventData} from 'react-native'
-import React,{useState} from 'react'
+import { TextInput, View, Image, ImageSourcePropType} from 'react-native'
+import React from 'react'
 
-const InputFeild = ({
+const InputField = ({
     value,
     name,
     onChangeText,
@@ -9,6 +9,7 @@ const InputFeild = ({
     keyboardType='default',
     maxLength,
     className,
+    classNameText,
     icon,
     }: {
         value: string,
@@ -18,6 +19,7 @@ const InputFeild = ({
         keyboardType: 'default' | 'numeric' | 'email-address' | 'phone-pad',
         maxLength?: number | undefined,
         className?: string
+        classNameText?: string
         icon?: ImageSourcePropType
 }) => {
 
@@ -33,10 +35,10 @@ const InputFeild = ({
                 onChangeText={(text) => onChangeText(name, text)}
                 maxLength={maxLength}
                 cursorColor="#E27139"
-                className='w-full px-4 tracking-widest rounded-[10px] text-2xl font-JakartaLight text-secondary-100 placeholder:text-secondary-200 placeholder:text-[15px]'
+                className={`w-full px-4 tracking-widest rounded-[10px] text-[15px] font-JakartaSemiBold text-secondary-100 placeholder:text-secondary-200 ${classNameText}`}
             />
         </View>
   )
 }
 
-export default InputFeild
+export default InputField;

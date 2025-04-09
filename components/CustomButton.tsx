@@ -5,7 +5,7 @@ const CustomButton = ({
   title,
   icon,
   className,
-  active,
+  active=true,
   onPress,
 }: { 
   title: string; 

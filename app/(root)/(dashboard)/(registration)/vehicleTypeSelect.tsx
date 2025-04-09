@@ -6,17 +6,17 @@ import { router } from 'expo-router'
 
 const vehicleType = () => {
   const handleBikeClick = () => {
-    router.push("/(root)/(dashboard)/(bikerReg)/main");
+    router.push("/(root)/(dashboard)/(registration)/biker");
   };
   const handleCarClick = () => {
-    router.push("/(root)/(dashboard)/(bikerReg)/main");
+    router.push("/(root)/(dashboard)/(registration)/biker");
   };
   return (
     <SafeAreaView className='flex-1 justify-center items-center bg-secondary-400'>
       <View className='w-full h-[60%] flex justify-center items-center'>
         <View className='flex justify-center items-center gap-7'>
           <SpeechBubble
-            text="Select your vehicle type"
+            text="Select your vehicle type..."
           />
           <Image source={images.foxMascot} className='w-[130px] h-[130px]' />
         </View>
