@@ -7,20 +7,27 @@ import { router } from 'expo-router'
 import CustomDocCard from '@/components/CustomDocCard'
 import { AnimatedCircularProgress } from 'react-native-circular-progress'
 import { useAppSelector } from '@/redux/hook'
+import { supabase } from '@/lib/supabase'
 
 const main = () => {
     const [completionPercentage, setCompletionPercentage] = useState(0);
-    const formData = useAppSelector((state) => state.biker);
-    const riderFormData = useAppSelector((state) => state.rider);
+    // const formData = useAppSelector((state) => state.biker);
+    const {personalInfo, phoneNumber} = useAppSelector((state) => state.user);
+    const document = useAppSelector((state) => state.document)
 
 
     useEffect(() => {
-      const fields = Object.values(formData);
-      const filledFields = fields.filter((val) => val.trim() !== '').length;
-      const totalFields = fields.length;
-      const percent = Math.round((filledFields / totalFields) * 100);
+      const fields = Object.values(document);
+      //extra field for personal info
+      const totalFields = fields.length + 1;
+      var completedFields = fields.filter((field) => field.url !== '').length;
+      //adding personal info to the count
+      if(personalInfo){
+        completedFields++;
+      }
+      const percent = Math.round((completedFields / totalFields) * 100);
       setCompletionPercentage(percent);
-    }, [formData]);
+    }, [document, personalInfo]);
     
     function handleClick(id: string) {
       router.push({
@@ -31,10 +38,51 @@ const main = () => {
       });
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
+      try {
+        // Step 1: Insert (or update) into documents table
+        const { data: docData, error: docError } = await supabase
+          .from('documents')
+          .upsert({
+            rc_url: document.rc.url,
+            rc_number: document.rc.number,
+            dl_url: document.dl.url,
+            dl_number: document.dl.number,
+            aadhar_url: document.aadhar.url,
+            aadhar_number: document.aadhar.number,
+          }, { onConflict: 'aadhar_number' })
+          .select()
+          .single(); // get the inserted/updated doc row
+    
+        if (docError || !docData) {
+          console.log('❌ Error inserting/updating documents:', docError);
+          return;
+        }
+    
+        // Step 2: Update user with personal info and document_id
+        const { error: userError } = await supabase
+          .from('users')
+          .upsert({
+            first_name: personalInfo?.firstName,
+            last_name: personalInfo?.lastName,
+            dob: personalInfo?.dob,
+            gender: personalInfo?.gender,
+            document_id: docData.id,
+          }, { onConflict: 'phone_number' });
+    
+        if (userError) {
+          console.log('❌ Error updating user:', userError);
+          return;
+        }
+    
+        console.log('✅ User onboarded successfully!');
         router.push('/(root)/(dashboard)/vehicleSelect');
-        console.log(formData);
-    }
+      } catch (err) {
+        console.log('❌ Unexpected error:', err);
+      }
+    };
+    
+    
 
   return (
     <SafeAreaView className="bg-secondary-400 flex-1">
@@ -72,16 +120,16 @@ const main = () => {
                     </AnimatedCircularProgress>
                 </View>
                 <TouchableOpacity onPress={() => handleClick('rc')}>
-                    <CustomDocCard label="Vehicle RC Number" leftIcon={icons.document} status={formData.registrationCertificate != ''}/>
+                    <CustomDocCard label="Vehicle RC Number" leftIcon={icons.document} status={document.rc.number != ''}/>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => handleClick('dl')}>
-                    <CustomDocCard label="Driving License" leftIcon={icons.document} status={formData.drivingLicense != ''}/>
+                    <CustomDocCard label="Driving License" leftIcon={icons.document} status={document.dl.number != ''}/>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() =>handleClick('aadhar')}>
-                    <CustomDocCard label="Aadhar/Pan Card" leftIcon={icons.document} status={formData.aadharCard != ''}/>
+                    <CustomDocCard label="Aadhar/Pan Card" leftIcon={icons.document} status={document.aadhar.number != ''}/>
                 </TouchableOpacity>
                 <TouchableOpacity  onPress={() => handleClick('profile')}>
-                    <CustomDocCard label="Profile info" leftIcon={icons.profile} status={formData.profileInformation != ''}/>
+                    <CustomDocCard label="Profile info" leftIcon={icons.profile} status={personalInfo!=null}/>
                 </TouchableOpacity>
             </View>
             {/* Submit Button */}

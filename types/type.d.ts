@@ -137,3 +137,49 @@ declare interface DriverCardProps {
     selected: number;
     setSelected: () => void;
 }
+
+type OlaMapInputProps = {
+  placeholder: string;
+  keyboardType?: 'default' | 'numeric' | 'email-address' | 'phone-pad';
+  setSuggestions: (suggestions: Prediction[]) => void;
+  defaultValue?: string;
+  name: "pickup" | "drop" | null;
+  focused?: boolean;
+  className?: string;
+  classNameText?: string;
+  icon?: ImageSourcePropType;
+};
+
+type Prediction = {
+    reference: string;
+    types: string[];
+    matched_substrings: {
+      offset: number;
+      length: number;
+    }[];
+    terms: {
+      offset: number;
+      value: string;
+    }[];
+    structured_formatting: {
+      main_text: string;
+      main_text_matched_substrings: {
+        offset: number;
+        length: number;
+      }[];
+      secondary_text: string;
+      secondary_text_matched_substrings: {
+        offset: number;
+        length: number;
+      }[];
+    };
+    description: string;
+    geometry: {
+      location: {
+        lng: number;
+        lat: number;
+      };
+    };
+    place_id: string;
+    layer: string[];
+  };

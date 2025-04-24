@@ -1,28 +1,8 @@
 import indiaFlag from "@/assets/icons/india-flag.png";
-import arrowDown from "@/assets/icons/arrow-down.png";
-import arrowUp from "@/assets/icons/arrow-up.png";
-import backArrow from "@/assets/icons/back-arrow.png";
-import chat from "@/assets/icons/chat.png";
-import close from "@/assets/icons/close.png";
-import dollar from "@/assets/icons/dollar.png";
-import email from "@/assets/icons/email.png";
-import eyecross from "@/assets/icons/eyecross.png";
 import google from "@/assets/icons/google.png";
-import home from "@/assets/icons/home.png";
-import list from "@/assets/icons/list.png";
-import lock from "@/assets/icons/lock.png";
-import map from "@/assets/icons/map.png";
-import marker from "@/assets/icons/marker.png";
-import out from "@/assets/icons/out.png";
-import person from "@/assets/icons/person.png";
 import pin from "@/assets/icons/pin.png";
-import point from "@/assets/icons/point.png";
 import profile from "@/assets/icons/profile.png";
 import search from "@/assets/icons/search.png";
-import selectedMarker from "@/assets/icons/selected-marker.png";
-import star from "@/assets/icons/star.png";
-import target from "@/assets/icons/target.png";
-import to from "@/assets/icons/to.png";
 import check from "@/assets/images/check.png";
 import getStarted from "@/assets/images/get-started.png";
 import message from "@/assets/images/message.png";
@@ -50,7 +30,16 @@ import icon from "@/assets/images/icon.png";
 import menu from "@/assets/icons/menu.png";
 import startEndPins from "@/assets/icons/startEndPins.png";
 import edit from "@/assets/icons/edit.png";
-
+import startPoint from "@/assets/icons/start-point.png";
+import endPoint from "@/assets/icons/end-point.png";
+import mascotDialing from "@/assets/images/mascot-dialing.png";
+import information from "@/assets/icons/information.png";
+import history from "@/assets/icons/history.png";
+import home from "@/assets/icons/home.png";
+import headphones from "@/assets/icons/headphones.png";
+import logout from "@/assets/icons/logout.png";
+import error from "@/assets/icons/error.png";
+import warning from "@/assets/icons/warning.png";
 
 export const images = {
     onboarding1,
@@ -69,34 +58,15 @@ export const images = {
     rider,
     foxMascot,
     documentInstructions,
-    icon
+    icon,
+    mascotDialing
 };
 
 export const icons = {
-    arrowDown,
-    arrowUp,
-    backArrow,
-    chat,
-    close,
-    dollar,
-    email,
-    eyecross,
     google,
-    home,
-    list,
-    lock,
-    map,
-    marker,
-    out,
-    person,
     pin,
-    point,
     profile,
     search,
-    selectedMarker,
-    star,
-    target,
-    to,
     indiaFlag,
     arrow,
     addProfile,
@@ -107,7 +77,16 @@ export const icons = {
     upload,
     menu,
     startEndPins,
-    edit
+    edit,
+    startPoint,
+    endPoint,
+    information,
+    history,
+    home,
+    headphones,
+    logout,
+    error,
+    warning,
 };
 
 export const onboarding = [

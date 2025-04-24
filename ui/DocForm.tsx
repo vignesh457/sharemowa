@@ -1,17 +1,21 @@
 import { View, Text, KeyboardAvoidingView, Platform, SafeAreaView, ScrollView, TouchableOpacity, Image, Alert } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CustomButton from '@/components/CustomButton';
 import InputFieldWithLabel from '@/components/InputFieldWithLabel';
 import { icons, images } from '@/constants';
 import { router } from 'expo-router';
 import CustomFileUpload from '@/components/CustomFileUpload';
+import { DocumentState } from '@/redux/slice/documentSlice';
+import { useAppDispatch } from '@/redux/hook';
+import { showAlert } from '@/redux/slice/alertSlice';
 
-const DocForm = ({ title, label, onSubmit }: { title: string; label: string, onSubmit: (value: string) => void }) => {
+const DocForm = ({ title, label, onSubmit }: { title: string; label: string, onSubmit: (value: DocumentState) => void }) => {
   const [formData, setFormData] = useState({
     firstEntry: '',
     secondEntry: '',
     fileUrl: '',
   });
+  const dispatch = useAppDispatch();
 
   const handleChange = (name: string, value: string) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -25,23 +29,23 @@ const DocForm = ({ title, label, onSubmit }: { title: string; label: string, onS
     const { firstEntry, secondEntry, fileUrl } = formData;
 
     if (!firstEntry || !secondEntry) {
-      Alert.alert('Error', 'Please fill in both fields.');
+      dispatch(showAlert({ type: 'warning', message: 'Please fill in both fields.' }));
       return;
     }
 
     if (firstEntry !== secondEntry) {
-      Alert.alert('Mismatch', 'Both entries must match.');
+      dispatch(showAlert({ type: 'warning', message: 'Both entries must match.' }));
       return;
     }
 
     if (!fileUrl) {
-      Alert.alert('No File', 'Please upload your document.');
+      dispatch(showAlert({ type: 'warning', message: 'Please upload your document.' }));
       return;
     }
 
-    Alert.alert('Success', 'Document submitted successfully!');
+    dispatch(showAlert({ type: 'success', message: 'Document submitted successfully!' }));
     // You can now send formData to Supabase or your backend
-    onSubmit(JSON.stringify(formData));
+    onSubmit({ number:firstEntry, url:fileUrl });
     router.back();
   };
 
@@ -52,7 +56,7 @@ const DocForm = ({ title, label, onSubmit }: { title: string; label: string, onS
         style={{ flex: 1 }}
       >
         {/* Header */}
-        <View className="bg-secondary-300 w-full h-[15%] flex flex-row justify-evenly items-center pt-5">
+        <View className="bg-secondary-300 w-full h-[15%] flex flex-row justify-evenly items-center pt-5 border-b-2 border-secondary-400">
           <TouchableOpacity onPress={() => router.back()}>
             <Image source={icons.arrow} className="w-[30px] h-[30px] ml-7 mr-10" />
           </TouchableOpacity>

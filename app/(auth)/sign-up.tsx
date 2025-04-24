@@ -1,7 +1,7 @@
 import CustomLoader from "@/components/CustomLoader";
 import OtpUi from "@/ui/OtpUi";
 import PhoneNumberUi from "@/ui/PhoneNumberUi";
-import { useSignIn, useSignUp } from "@clerk/clerk-expo";
+import { useAuth, useSignIn, useSignUp } from "@clerk/clerk-expo";
 import { router } from "expo-router";
 import { useState } from "react";
 import { ActivityIndicator, Alert, SafeAreaView, View, Text } from "react-native";
@@ -14,6 +14,8 @@ export default function OTPAuthentication() {
   const [step, setStep] = useState(1);
   const [isSignUpFlow, setIsSignUpFlow] = useState(false);
   const [loading, setLoading] = useState(false);
+  const {isSignedIn} = useAuth();
+  
 
   const handleSendOTP = async () => {
     if (!isSignInLoaded || !isSignUpLoaded){
@@ -24,7 +26,7 @@ export default function OTPAuthentication() {
     try {
       // Try sign-in first
       if (signIn) {
-        const {supportedFirstFactors} = await signIn.create({ identifier: `+91${phoneNumber}` });
+        const {supportedFirstFactors} = await signIn.create({ identifier: `+1${phoneNumber}` });
         const isPhoneCodeFactor = (factor: any): factor is any => {
           return factor.strategy === 'phone_code'
         }
@@ -41,7 +43,7 @@ export default function OTPAuthentication() {
         // If user doesn't exist, switch to sign-up
         try {
           if (signUp) {
-            await signUp.create({ phoneNumber: `+91${phoneNumber}` });
+            await signUp.create({ phoneNumber: `+1${phoneNumber}` });
             await signUp.preparePhoneNumberVerification();
             setStep(2);
             setIsSignUpFlow(true);
@@ -58,6 +60,7 @@ export default function OTPAuthentication() {
   };
 
   const handleVerifyOTP = async () => {
+    console.log(isSignedIn);
     if ((!isSignInLoaded && !isSignUpFlow) || (!isSignUpLoaded && isSignUpFlow)){
       Alert.alert("Error", "Authentication service not loaded.");
       return;
@@ -65,15 +68,21 @@ export default function OTPAuthentication() {
     setLoading(true);
     try {
       if (isSignUpFlow) {
+        console.log("Sign up flow");
         if (signUp) {
+          console.log("inside sign up");
           const result = await signUp.attemptPhoneNumberVerification({ code: otp });
           if (result.status === "complete") {
             console.log("Sign up successful!", result.createdSessionId);
             router.replace('/(root)/(dashboard)/roleSelect');
           }
         }
+        else {
+          Alert.alert("Error1", signUp);
+        }
       } else {
         if (signIn) {
+          console.log("inside sign in");
           const result = await signIn.attemptFirstFactor({
             strategy: "phone_code",
             code: otp,
@@ -82,6 +91,9 @@ export default function OTPAuthentication() {
             console.log("Sign in successful!", result.createdSessionId);
             router.replace('/(root)/(dashboard)/roleSelect');
           }
+        }
+        else {
+          Alert.alert("Error2", signIn);
         }
       }
     } catch (err: any) {
@@ -94,9 +106,9 @@ export default function OTPAuthentication() {
     <SafeAreaView className="flex-1 items-center bg-secondary-400">
       {loading && <CustomLoader/>}
       {step === 1 ? (
-        <PhoneNumberUi phoneNumber={phoneNumber} setPhoneNumber={setPhoneNumber} handleSendOTP={handleSendOTP}/>
+        <PhoneNumberUi phoneNumber={phoneNumber} setPhoneNumber={setPhoneNumber} sendOTP={handleSendOTP}/>
       ) : (
-        <OtpUi otp={otp} setOtp={setOtp} handleVerifyOTP={handleVerifyOTP}/>
+        <OtpUi otp={otp} setOtp={setOtp} handleVerifyOTP={handleVerifyOTP} resendOTP={handleSendOTP}/>
       )}
     </SafeAreaView>
     

@@ -1,25 +1,22 @@
 import { View, Image } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import SpeechBubble from '@/components/SpeechBubble'
 import { images } from '@/constants'
 import CustomButton from '@/components/CustomButton'
 import { RelativePathString, router, useLocalSearchParams } from 'expo-router'
+import MascotTalk from '@/components/MascotTalk'
+import { useAppSelector } from '@/redux/hook'
+import { useUser } from '@clerk/clerk-expo'
 
 const mascotMessage = () => {
-  const {role} = useLocalSearchParams();
+  const {role} = useAppSelector((state) => state.user);
 
   return (
   <SafeAreaView className='flex-1 justify-center items-center bg-secondary-400'>
-    <View className=' w-full h-[85%] flex justify-center items-center'>
-      <View className='flex justify-center items-center gap-7'>
-        <SpeechBubble
-          text={role == "rider" ? "Please continue filling you personal information" : "Please continue to submit all required documents and personal information"}
-        />
-        <Image source={images.foxMascot} className='w-[130px] h-[130px]' />
-      </View>
+    <View className=' w-full h-[65%] flex justify-end items-center'>
+        <MascotTalk text={role == "rider" ? "Please continue filling you personal information" : "Please continue to submit all required documents and personal information"} image={images.foxMascot} />
     </View>
-    <View className='w-full h-[15%] flex justify-center items-center'>
+    <View className='w-full h-[35%] flex justify-end items-center pb-10'>
       <CustomButton active={true} title="Continue" onPress={() => router.push(`/(root)/(dashboard)/(registration)/${role}` as RelativePathString)} />
     </View>
   </SafeAreaView>

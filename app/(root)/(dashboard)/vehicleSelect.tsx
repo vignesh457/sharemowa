@@ -1,15 +1,16 @@
 import { View,TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import SpeechBubble from '@/components/SpeechBubble'
 import { images } from '@/constants'
 import { router, useLocalSearchParams } from 'expo-router'
+import MascotTalk from '@/components/MascotTalk'
+import { useAppSelector } from '@/redux/hook'
 
 const vehicleSelect = () => {
-  const {role} = useLocalSearchParams();
+  const {role} = useAppSelector((state) => state.user);
   function handleBikeClick(){
     router.push({
-      pathname: "/(root)/(main)/home",
+      pathname: "/(root)/(main)/(drawer)/home",
       params: {
         vehicleType: "Bike",
       },
@@ -19,7 +20,7 @@ const vehicleSelect = () => {
 
   function handleCarClick(){
     router.push({
-      pathname: "/(root)/(main)/home",
+      pathname: "/(root)/(main)/(drawer)/home",
       params: {
         vehicleType: "Car",
       },
@@ -28,13 +29,8 @@ const vehicleSelect = () => {
 
   return (
     <SafeAreaView className='flex-1 justify-center items-center bg-secondary-400'>
-      <View className='w-full h-[60%] flex justify-center items-center'>
-        <View className='flex justify-center items-center gap-7'>
-          <SpeechBubble
-            text={role == "Rider" ? "Which vechicle are you looking for ?" : "Which vehicle are you offering ?"}
-          />
-          <Image source={images.foxMascot} className='w-[130px] h-[130px]' />
-        </View>
+      <View className='w-full h-[60%] flex justify-end items-center'>
+          <MascotTalk text={role == "rider" ? "Which vechicle are you looking for ?" : "Which vehicle are you offering ?"} image={images.foxMascot} />
       </View>
       <View className='bg-secondary-400 w-full h-[40%] flex justify-start items-center'>
         <View className='w-[85%] h-[70%] m-5 rounded-xl flex flex-row justify-between items-center'>

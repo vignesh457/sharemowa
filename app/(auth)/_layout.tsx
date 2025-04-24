@@ -1,5 +1,5 @@
 import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
+import { StatusBar } from 'react-native';
 
 export default function AuthLayout() {
   
@@ -9,7 +9,7 @@ export default function AuthLayout() {
         <Stack.Screen name="features" options={{ gestureEnabled: false  }} />
         <Stack.Screen name="sign-up" options={{ gestureEnabled: false  }} />
       </Stack>
-      <StatusBar style="auto" />
+      <StatusBar barStyle="light-content" backgroundColor="#000"  />
     </>
   );
 }

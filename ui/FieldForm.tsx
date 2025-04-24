@@ -1,19 +1,24 @@
 import { View, Text, SafeAreaView, Image, ScrollView, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard, TouchableOpacity } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CustomButton from '@/components/CustomButton';
 import InputFieldWithLabel from '@/components/InputFieldWithLabel';
 import { icons } from '@/constants';
 import CustomDatePicker from '@/components/CustomDatePicker';
 import CustomRadioBtn from '@/components/CustomRadioBtn';
 import { router } from 'expo-router';
+import { useAppDispatch, useAppSelector } from '@/redux/hook';
+import { PersonalInfo } from '@/redux/slice/userSlice';
+import { showAlert } from '@/redux/slice/alertSlice';
 
-const FieldForm = ({parent, onSubmit}:{parent: string, onSubmit: (value: string) => void}) => {
+const FieldForm = ({onSubmit}:{onSubmit: (value: PersonalInfo) => void}) => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
     dob: '',
     gender: 'male',
   });
+  const {role} = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
 
   const handleChange = (name: any, value: any) => {
     setFormData({ ...formData, [name]: value });
@@ -22,11 +27,11 @@ const FieldForm = ({parent, onSubmit}:{parent: string, onSubmit: (value: string)
   const handleSubmit = () => {
     //validating form fields
     if (!formData.firstName.trim() || !formData.lastName.trim() || !formData.dob.trim() || !formData.gender.trim()) {
-      alert('All fields are required');
+      dispatch(showAlert({ type: 'warning', message: 'All fields are required.' }));
       return;
     }
-    onSubmit(JSON.stringify(formData));
-    (parent === 'biker') ? router.back() : router.push('/(root)/(dashboard)/vehicleSelect');
+    onSubmit(formData);
+    // (role === 'biker') ? router.back() : router.push('/(root)/(dashboard)/vehicleSelect');
   };
 
   return (

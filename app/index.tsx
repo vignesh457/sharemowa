@@ -1,14 +1,13 @@
 import { useAuth } from '@clerk/clerk-expo';
 import React, { useEffect } from 'react';
 import { Redirect } from 'expo-router';
-import DatePickerUi from '@/components/CustomDatePicker';
-import CustomRadioBtn from '@/components/CustomRadioBtn';
-import CustomLoader from '@/components/CustomLoader';
-import CustomFileUpload from '@/components/CustomFileUpload';
 import * as SystemUI from 'expo-system-ui';
+import CustomSplashScreen from '@/components/CustomSplashScreen';
 
 const Index = () => {
-  SystemUI.setBackgroundColorAsync("#000000");
+  useEffect(() => {
+    SystemUI.setBackgroundColorAsync("#000000");
+  },[])
   const { isSignedIn, isLoaded } = useAuth();
 
   // Debugging: Log auth state
@@ -19,7 +18,7 @@ const Index = () => {
 
   // Wait for auth state to load
   if (!isLoaded) {
-    return <CustomLoader/>; // Optionally render a loading spinner here
+    return <CustomSplashScreen value={500}/>; // Optionally render a loading spinner here
   }
 
   // Redirect based on session state
@@ -28,7 +27,7 @@ const Index = () => {
   }
   
   return <Redirect href="/(auth)/features" />;
-  // return <Redirect href="/(root)/(main)/confirmPickup" />;
+  // return <Redirect href="/(root)/(main)/(drawer)/home" />;
 };
 
 export default Index;

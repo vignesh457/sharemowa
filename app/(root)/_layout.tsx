@@ -1,5 +1,5 @@
 import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
+import { StatusBar } from 'react-native';
 
 export default function RootLayout() {
   
@@ -9,7 +9,7 @@ export default function RootLayout() {
         <Stack.Screen name="(main)" options={{ gestureEnabled: false }} />
         <Stack.Screen name="(dashboard)" options={{ gestureEnabled: false }} />
       </Stack>
-      <StatusBar style="auto" />
+      <StatusBar barStyle="light-content" backgroundColor="#000"  />
     </>
   );
 }

@@ -1,4 +1,4 @@
-import { StatusBar } from 'expo-status-bar';
+import { StatusBar } from 'react-native';
 import React from 'react'
 import { Stack } from 'expo-router'
 
@@ -12,7 +12,7 @@ const _layout = () => {
             <Stack.Screen name="vehicleTypeSelect" options={{ gestureEnabled: false  }} />
             <Stack.Screen name="mascotPrompt" options={{ gestureEnabled: false  }} />
         </Stack>
-        <StatusBar style='auto' />
+        <StatusBar barStyle="light-content" backgroundColor="#000"  />
     </>
   )
 }

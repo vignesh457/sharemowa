@@ -1,8 +1,8 @@
 import { View, Text, SafeAreaView, TouchableOpacity,Image } from 'react-native'
 import React from 'react'
-import SpeechBubble from '@/components/SpeechBubble'
 import { images } from '@/constants'
 import { router } from 'expo-router'
+import MascotTalk from '@/components/MascotTalk'
 
 const vehicleType = () => {
   const handleBikeClick = () => {
@@ -13,13 +13,8 @@ const vehicleType = () => {
   };
   return (
     <SafeAreaView className='flex-1 justify-center items-center bg-secondary-400'>
-      <View className='w-full h-[60%] flex justify-center items-center'>
-        <View className='flex justify-center items-center gap-7'>
-          <SpeechBubble
-            text="Select your vehicle type..."
-          />
-          <Image source={images.foxMascot} className='w-[130px] h-[130px]' />
-        </View>
+      <View className='w-full h-[60%] flex justify-end items-center'>
+          <MascotTalk text="Select your vehicle type..." image={images.foxMascot} />
       </View>
       <View className='bg-secondary-400 w-full h-[40%] flex justify-start items-center'>
         <View className='w-[85%] h-[70%] m-5 rounded-xl flex flex-row justify-between items-center'>

@@ -1,3 +1,4 @@
+
 {
   "expo": {
     "name": "Sharemowa",
@@ -35,6 +36,12 @@
     "plugins": ["expo-router"],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "OLA_MAP_KEY": "${OLA_MAP_KEY}",
+      "eas": {
+        "projectId": "7b57f66c-b949-4963-84fc-cf93a0637a6f"
+      }
     }
   }
 }

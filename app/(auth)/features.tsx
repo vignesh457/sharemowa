@@ -6,6 +6,7 @@ import Swiper from 'react-native-swiper';
 import { onboarding } from '@/constants';
 import { Image } from 'react-native';
 import CustomButton from '@/components/CustomButton';
+import CustomSplashScreen from '@/components/CustomSplashScreen';
 
 const Features = () => {
   const ref = useRef<Swiper>(null);
@@ -19,11 +20,12 @@ const Features = () => {
         ref.current?.scrollBy(1);
     }
   }
+  
   return (
     <SafeAreaView className="flex-1 justify-center items-center bg-secondary-400">
       <TouchableOpacity
         onPress={() => router.push('/(auth)/sign-up')}
-        className=" w-20 h-9 rounded-full absolute top-12 right-2 flex items-center justify-center z-10"
+        className=" w-20 h-9 rounded-full absolute top-4 right-2 flex items-center justify-center z-10"
       >
         <Text className="text-primary-100 text-md font-JakartaBold">Skip</Text>
       </TouchableOpacity>

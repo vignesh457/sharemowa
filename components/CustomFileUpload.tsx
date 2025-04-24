@@ -5,9 +5,12 @@ import * as FileSystem from "expo-file-system";
 import React, { useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { icons } from "@/constants";
+import { useAppDispatch } from "@/redux/hook";
+import { showAlert } from "@/redux/slice/alertSlice";
 
 export default function CustomFileUpload({onUploadComplete}: {onUploadComplete: (url: string) => void}) {
   const [fileURL, setFileURL] = useState<string | null>(null);
+  const dispatch = useAppDispatch();
 
   const pickDocument = async () => {
     console.log("📂 Starting document picker...");
@@ -44,20 +47,20 @@ export default function CustomFileUpload({onUploadComplete}: {onUploadComplete: 
 
       if (error) {
         console.error("❌ Upload error:", error);
-        Alert.alert("Upload Failed", error.message);
+        dispatch(showAlert({ type: "error", message: error.message }));
       } else {
         const { data: publicURL } = supabase.storage
           .from("documents")
           .getPublicUrl(filePath);
 
         console.log("✅ File uploaded successfully:", publicURL.publicUrl);
-        Alert.alert("Success", "✅ File uploaded successfully!");
+        dispatch(showAlert({ type: "success", message: "File uploaded successfully" }));
         setFileURL(publicURL.publicUrl);
         onUploadComplete(publicURL.publicUrl);
       }
     } catch (err) {
       console.error("❌ Unexpected error:", err);
-      Alert.alert("Error", "Something went wrong.");
+      dispatch(showAlert({ type: "error", message: "Something went wrong." }));
     }
   };
 

@@ -1,0 +1,53 @@
+import 'dotenv/config';
+
+export default {
+  expo: {
+    name: "Sharemowa",
+    slug: "sharemowa",
+    version: "1.0.0",
+    orientation: "portrait",
+    icon: "./assets/images/icon.png",
+    backgroundColor: "#000000",
+    scheme: "myapp",
+    userInterfaceStyle: "automatic",
+    newArchEnabled: true,
+    statusBar: {
+      barstyle: "light-content",
+      backgroundColor: "#000000",
+    },
+    splash: {
+      image: "./assets/images/splash.png",
+      resizeMode: "contain",
+      backgroundColor: "#000000"
+    },
+    ios: {
+      supportsTablet: true,
+      infoPlist: {
+        NSLocationWhenInUseUsageDescription: "We need your location to show your current position on the map."
+      }
+    },
+    android: {
+      adaptiveIcon: {
+        foregroundImage: "./assets/images/adaptive-icon.png",
+        backgroundColor: "#000000"
+      },
+      permissions: ["ACCESS_FINE_LOCATION", "ACCESS_COARSE_LOCATION"],
+      package: "com.vignesh457.sharemowa"
+    },
+    web: {
+      bundler: "metro",
+      output: "static",
+      favicon: "./assets/images/favicon.png"
+    },
+    plugins: ["expo-router"],
+    experiments: {
+      typedRoutes: true
+    },
+    extra: {
+      OLA_MAP_KEY: process.env.OLA_MAP_KEY,
+      eas: {
+        projectId: "7b57f66c-b949-4963-84fc-cf93a0637a6f"
+      }
+    }
+  }
+};
