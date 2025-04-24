@@ -45,7 +45,7 @@ const CustomLoader = () => {
     <View className="w-full h-full bg-[#00000080] absolute top-0 left-0 flex justify-center items-center pt-5 z-10">
     <View style={styles.container}>
       {animations.map((translateY, index) => {
-        const backgroundColor = index % 2 === 0 ? '#DFDFDF' : '#E27139';
+        const backgroundColor = index % 2 === 0 ? '#DFDFDFD' : '#E27139';
         return (
           <Animated.View
             key={index}
