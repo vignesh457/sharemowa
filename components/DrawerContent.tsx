@@ -7,6 +7,7 @@ import {
 import { icons } from '@/constants';
 import { useAuth } from '@clerk/clerk-expo';
 import { router } from 'expo-router';
+import { useAppSelector } from '@/redux/hook';
 
 // Define the theme
 const theme = {
@@ -20,6 +21,7 @@ const theme = {
 const DrawerContent = (props: any) => {
   const { state, navigation, descriptors } = props;
   const { signOut } = useAuth();
+  const {personalInfo, phoneNumber, role} = useAppSelector(state => state.user);
 
   const handleSignOut = async () => {
     try {
@@ -38,17 +40,17 @@ const DrawerContent = (props: any) => {
         </View>
         <View className="w-[60%] h-full flex items-start justify-center gap-1 px-2">
             <Text numberOfLines={1} ellipsizeMode="tail" className='w-full text-[18px] font-JakartaSemiBold text-secondary-100'>
-                Vignesh
+                {personalInfo?.firstName}
             </Text>
             <Text numberOfLines={1} ellipsizeMode="tail" className='w-full text-[15px] font-JakartaMedium text-secondary-200'>
-                +91 9999999999
+                +91 {phoneNumber}
             </Text>
         </View>
-        <TouchableOpacity onPress={() => {}} className='w-[15%] h-full flex gap-1 items-center justify-center '>
+        <TouchableOpacity onPress={() => router.push(`/(root)/(dashboard)/(registration)/${role!}`)} className='w-[15%] h-full flex gap-1 items-center justify-center '>
             <Image source={icons.edit} className="w-10 h-10" />
         </TouchableOpacity>
       </View>
-      <DrawerContentScrollView {...props}>
+      <DrawerContentScrollView style={styles.drawerContent} {...props}>
         {state.routes.map((route: { key: any; name: any; }, index: any) => {
           const focused = state.index === index;
           const { title, drawerIcon } = descriptors[route.key].options;
@@ -74,8 +76,8 @@ const DrawerContent = (props: any) => {
         })}
       </DrawerContentScrollView>
 
-      <View className='flex items-center justify-evenly w-full h-[150px] border-t-[2px] border-secondary-300'>
-        <TouchableOpacity onPress={handleSignOut} className='flex flex-row items-center justify-start w-full gap-5 py-5 px-8'>
+      <View className='flex items-center justify-evenly w-[90%] h-[180px] border-t-[2px] border-secondary-300'>
+        <TouchableOpacity onPress={handleSignOut} className='flex flex-row items-center justify-start w-full gap-5 py-5 px-4'>
           <Image source={icons.logout} className="w-7 h-7" />
           <Text className='text-[18px] font-JakartaMedium text-secondary-100'>Logout</Text>
         </TouchableOpacity>
@@ -92,7 +94,11 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.background,
     borderRightColor: '#262626',
     borderRightWidth: 1,
-    padding: 10,
+    display: 'flex',
+    alignItems: 'center',
+  },
+  drawerContent: {
+    width: '95%',
   },
   drawerItemListContainer: {
     borderRadius: 10,

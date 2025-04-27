@@ -17,6 +17,21 @@ const loadingBiker = () => {
   const {routeCoordinates} = useAppSelector((state) => state.userLocation);
   const [locationGranted, setLocationGranted] = useState(false);
   const apiKey = process.env.EXPO_PUBLIC_OLA_MAP_KEY;
+  const mapRef = React.useRef<MapView>(null);
+
+  useEffect(() => {
+    if (pickupLocation && dropLocation && mapRef.current) {
+      const coordinates = [
+        { latitude: pickupLocation.lat, longitude: pickupLocation.log },
+        { latitude: dropLocation.lat, longitude: dropLocation.log },
+      ];
+      mapRef.current.fitToCoordinates(coordinates, {
+        edgePadding: { top: 10, right: 10, bottom: 10, left: 10 },
+        animated: true,
+      });
+    }
+  }, [pickupLocation, dropLocation]);
+  
 
   useEffect(() => {
     if (!pickupLocation || !dropLocation) return;
@@ -55,12 +70,13 @@ const loadingBiker = () => {
       {/* Map View */}
       <View className="w-full h-[70%]">
         <MapView
+          ref={mapRef}
           style={{ width: '100%', height: '100%' }}
           initialRegion={{
             latitude: pickupLocation?.lat ?? 17.385044,
             longitude: pickupLocation?.log ?? 78.486671,
-            latitudeDelta: 0.05,
-            longitudeDelta: 0.05,
+            latitudeDelta: 0.005,
+            longitudeDelta: 0.005,
           }}
           showsUserLocation={locationGranted}
           showsMyLocationButton={true}
@@ -104,24 +120,14 @@ const loadingBiker = () => {
       </View>
 
       {/* Bottom Info */}
-      <View className="w-full h-[30%] rounded-t-[20px] bg-secondary-400 mt-[-28px] flex gap-5 pt-4 justify-start items-center">
-        <Text className="text-secondary-100 text-[18px] font-JakartaBold text-center mb-4">
-          Waiting for Biker...
+      <View className="w-full h-[30%] rounded-t-[20px] bg-secondary-400 mt-[-28px] p-4 flex justify-center items-center gap-5">
+        <Text className="text-secondary-100 text-[20px] font-JakartaBold text-center mb-2">
+          Searching for a Biker...
         </Text>
-        <View className="bg-secondary-300 w-4/5 h-[80px] rounded-lg flex flex-row justify-center items-center">
-          <View className="w-[12%] pl-2 h-full flex justify-center items-center">
-            <Image source={icons.startPoint} className="w-12 h-12" />
-          </View>
-          <View className="w-[70%] h-full flex justify-center p-3">
-            <Text className="text-secondary-100 text-[15px] font-JakartaMedium leading-7" numberOfLines={2} ellipsizeMode="tail">
-              {pickupLocation?.address ?? 'Pickup Address'}
-            </Text>
-          </View>
-          <TouchableOpacity onPress={() => router.back()} className="w-[18%] h-full flex justify-center items-center">
-            <Image source={icons.edit} className="w-10 h-10" />
-          </TouchableOpacity>
-        </View>
-        <CustomButton title={'Confirm Location'} />
+        <Text className="text-secondary-100 text-[14px] font-JakartaMedium text-center">
+          Please wait while we connect you to a nearby biker.
+        </Text>
+        <CustomButton title="Cancel Ride" />
       </View>
     </SafeAreaView>
   );

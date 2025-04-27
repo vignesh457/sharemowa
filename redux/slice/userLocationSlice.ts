@@ -17,6 +17,7 @@ interface LocationState {
   dropLocation: (Coordinates & { address: string }) | null;
   selectedLocationType: 'pickup' | 'drop' | null;
   routeCoordinates: LatLng[]; // New: stores the decoded polyline route
+  locationGranted: boolean;
 }
 
 // Initial state
@@ -26,6 +27,7 @@ const initialState: LocationState = {
   dropLocation: null,
   selectedLocationType: null,
   routeCoordinates: [], // Initialize as empty array
+  locationGranted: false,
 };
 
 // Create the slice
@@ -48,10 +50,18 @@ const userLocationSlice = createSlice({
     setRouteCoordinates(state, action: PayloadAction<LatLng[]>) {
       state.routeCoordinates = action.payload;
     },
+    setLocationGranted(state, action: PayloadAction<boolean>) {
+      state.locationGranted = action.payload;
+    },
+    updateLiveLocation: (state, action) => {
+      state.currentLocation!.lat = action.payload.lat;
+      state.currentLocation!.log = action.payload.log;
+    },
     clearLocations(state) {
       state.pickupLocation = null;
       state.dropLocation = null;
       state.routeCoordinates = [];
+      state.locationGranted = false;
     },
   },
 });
@@ -62,7 +72,9 @@ export const {
   setPickupLocation,
   setDropLocation,
   setSelectedLocationType,
-  setRouteCoordinates, // <- export new action
+  setRouteCoordinates,
+  setLocationGranted,
+  updateLiveLocation,
   clearLocations,
 } = userLocationSlice.actions;
 

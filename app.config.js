@@ -3,6 +3,7 @@ import 'dotenv/config';
 export default {
   expo: {
     name: "Sharemowa",
+    owner: "vignesh457",
     slug: "sharemowa",
     version: "1.0.0",
     orientation: "portrait",

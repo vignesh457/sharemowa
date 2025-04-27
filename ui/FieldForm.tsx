@@ -11,12 +11,8 @@ import { PersonalInfo } from '@/redux/slice/userSlice';
 import { showAlert } from '@/redux/slice/alertSlice';
 
 const FieldForm = ({onSubmit}:{onSubmit: (value: PersonalInfo) => void}) => {
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    dob: '',
-    gender: 'male',
-  });
+  const {personalInfo} = useAppSelector((state) => state.user);
+  const [formData, setFormData] = useState(personalInfo || {firstName: '', lastName: '', dob: '', gender: 'male'});
   const {role} = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
 

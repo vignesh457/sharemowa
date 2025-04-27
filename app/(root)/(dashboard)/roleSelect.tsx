@@ -16,13 +16,20 @@ const main = () => {
     dispatch(setUserRole(role));
     try {
       console.log("db called");
+      console.log("📱 Phone number:", phoneNumber);
       const { data, error } = await supabase
         .from('users')
         .select('*')
         .eq('phone_number', phoneNumber)
         .single();
+        console.log(data);
       if (data && role == "biker") {
-        dispatch(setPersonalInfo(data));
+        dispatch(setPersonalInfo({
+          firstName: data.first_name,
+          lastName: data.last_name,
+          dob: data.dob,
+          gender: data.gender
+        }));
         if(data.document_id){
           router.push('/(root)/(dashboard)/vehicleSelect');
         }
@@ -31,7 +38,12 @@ const main = () => {
         }
       } 
       else if (data && role == "rider") {
-        dispatch(setPersonalInfo(data));
+        dispatch(setPersonalInfo({
+          firstName: data.first_name,
+          lastName: data.last_name,
+          dob: data.dob,
+          gender: data.gender
+        }));
         router.push('/(root)/(dashboard)/vehicleSelect');
       }
       else {
@@ -39,7 +51,6 @@ const main = () => {
       }
     } catch (err) {
       console.error("Error checking user data:", err);
-      router.push('/(root)/(dashboard)/(registration)/mascotPrompt');
     } 
   };
 

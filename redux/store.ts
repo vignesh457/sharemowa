@@ -15,6 +15,7 @@ import userLocationSlice from './slice/userLocationSlice';
 import userSlice from './slice/userSlice';
 import documentSlice from './slice/documentSlice';
 import alertSlice from './slice/alertSlice';
+import confirmSlice from './slice/confirmSlice';
 
 const persistConfig = {
   key: 'user',
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   userLocation: userLocationSlice,
   document: documentSlice,
   alert: alertSlice,
+  confirm: confirmSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

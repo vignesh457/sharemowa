@@ -1,53 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { View, Text, TouchableOpacity, Image, Alert } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
+import React from 'react';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { router } from 'expo-router';
 import { icons, images } from '@/constants';
-import DarkTheme from '@/utils/darkTheme.json';
-import * as Location from 'expo-location';
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
-import { setCurrentLocation, setPickupLocation } from '@/redux/slice/userLocationSlice';
 import {DrawerActions, useNavigation } from '@react-navigation/native';
-
+import Map from '@/components/Map';
 
 const home = () => {
-  const [locationGranted, setLocationGranted] = useState(false);
-  const dispatch = useAppDispatch()
-  const {currentLocation} = useAppSelector((state) => state.userLocation);
-  const mapRef = useRef<MapView>(null);
+  const {role, vehicleType} = useAppSelector((state) => state.user);
   const navigation = useNavigation();
-
-  useEffect(() => {
-    (async () => {
-      const { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        Alert.alert('Permission Denied', 'Enable location permission from settings');
-        return;
-      }
-      setLocationGranted(true);
-      const location = await Location.getCurrentPositionAsync({});
-      const address = await Location.reverseGeocodeAsync({
-        latitude: location.coords?.latitude!,
-        longitude: location.coords?.longitude!,
-      });
-      dispatch(setCurrentLocation({ lat: location.coords?.latitude, log: location.coords?.longitude, address: address[0].formattedAddress! }))
-      dispatch(setPickupLocation({ lat: location.coords?.latitude, log: location.coords?.longitude, address: address[0].formattedAddress! }))
-    })();
-  }, []);
-
-  useEffect(() => {
-    if (currentLocation && mapRef.current) {
-      mapRef.current.animateToRegion({
-        latitude: currentLocation.lat,
-        longitude: currentLocation.log,
-        latitudeDelta: 0.01,
-        longitudeDelta: 0.01,
-      }, 2000); // 1 second
-    }
-  }, [currentLocation]);
-  
   
   return (
     <SafeAreaView className="bg-secondary-400 flex-1 pt-14">
@@ -71,21 +34,9 @@ const home = () => {
 
       {/* Map and Address */}
       <View className='w-full h-[35%]'>
-        <MapView
-          ref={mapRef}
-          style={{ width: '100%', height: '100%' }}
-          initialRegion={{
-            latitude: currentLocation?.lat ?? 17.385044,
-            longitude: currentLocation?.log ?? 78.486671,
-            latitudeDelta: 0.01,
-            longitudeDelta: 0.01,
-          }}
-          showsUserLocation={locationGranted}
-          showsMyLocationButton={true}
-          customMapStyle={DarkTheme}
-        />
+        <Map zoomLevel={0.005}/>
       </View>
-      <View className='w-full h-[65%]'>
+      <View className='w-full h-[65%] flex justify-center items-center'>
           <TouchableOpacity 
             activeOpacity={0.8}
             onPress={() => {router.push("/(root)/(main)/selectLocation")}}
@@ -98,6 +49,14 @@ const home = () => {
                 Where are you going
               </Text>
           </TouchableOpacity>
+          <View className="flex justify-center items-center">
+              <Text className='w-full px-4 rounded-[10px] text-[25px] font-JakartaBold text-secondary-300'>
+                Role : {role}
+              </Text> 
+              <Text className='w-full px-4 rounded-[10px] text-[25px] font-JakartaBold text-secondary-300'>
+                Vehicle : {vehicleType}
+              </Text> 
+          </View>
       </View>
     </SafeAreaView>
   )

@@ -3,23 +3,35 @@ import React, { useEffect, useRef, useState } from 'react'
 import { icons } from '@/constants'
 import DarkTheme from '@/utils/darkTheme.json'
 import { router } from 'expo-router'
-import MapView from 'react-native-maps'
+import MapView, { Marker } from 'react-native-maps'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import CustomButton from '@/components/CustomButton'
 import { useAppDispatch, useAppSelector } from '@/redux/hook'
 import * as Location from 'expo-location';
 import { setPickupLocation, setSelectedLocationType } from '@/redux/slice/userLocationSlice'
+import Map from '@/components/Map'
 
 const ConfirmPickup = () => {
   const { currentLocation, pickupLocation } = useAppSelector((state) => state.userLocation);
   const dispatch = useAppDispatch();
   const mapRef = useRef<MapView>(null);
   const [region, setRegion] = useState({
-    latitude: currentLocation?.lat ?? 0,
-    longitude: currentLocation?.log ?? 0,
+    latitude: pickupLocation?.lat ?? 0,
+    longitude: pickupLocation?.log ?? 0,
     latitudeDelta: 0.002,
     longitudeDelta: 0.002,
   });
+
+  useEffect(() => {
+     if (pickupLocation?.lat && pickupLocation.log) {
+       mapRef.current?.animateToRegion({
+         latitude: pickupLocation.lat,
+         longitude: pickupLocation.log,
+         latitudeDelta: 0.002,
+         longitudeDelta: 0.002,
+       }, 1000); 
+     }
+   }, [pickupLocation]);
 
   const handleRegionChangeComplete = async (newRegion: any) => {
     setRegion(newRegion);
@@ -49,13 +61,13 @@ const ConfirmPickup = () => {
           style={{ width: '100%', height: '100%' }}
           initialRegion={region}
           onRegionChangeComplete={handleRegionChangeComplete}
-          showsUserLocation={!!currentLocation}
+          showsUserLocation={!!pickupLocation}
           showsMyLocationButton={true}
           customMapStyle={DarkTheme}
         />
         {/* Fixed Marker */}
-        <View className="absolute top-1/2 mt-[-24px] left-1/2 ml-[-12px]">
-          <Image source={icons.startPoint} className="w-12 h-12" />
+        <View className="absolute top-1/2 mt-[-40px] left-1/2 ml-[-21px]">
+          <Image source={icons.startPoint} className=" w-12 h-12" />
         </View>
       </View>
 

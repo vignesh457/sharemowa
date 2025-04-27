@@ -67,6 +67,7 @@ const main = () => {
             last_name: personalInfo?.lastName,
             dob: personalInfo?.dob,
             gender: personalInfo?.gender,
+            phone_number: phoneNumber,
             document_id: docData.id,
           }, { onConflict: 'phone_number' });
     
